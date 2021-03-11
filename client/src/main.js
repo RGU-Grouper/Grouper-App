@@ -21,6 +21,8 @@ const createGroups = () => {
     var i;
 for (i = 0; i < group.length; i++) {
     group.push("");
+
+    //change
 } 
 
 };

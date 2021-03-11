@@ -1,0 +1,29 @@
+{
+  "name": "grouper",
+  "version": "1.0.0",
+  "description": "App for creating subgroups of a preferred size.",
+  "main": "server/app.js",
+  "scripts": {
+    "build": "sass --watch client/scss:client/dist/css",
+    "dev": "concurrently  \"npm run build\" \"nodemon server/app.js\"",
+    "start": "node server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NESCOL-Grouper/grouper.git"
+  },
+  "author": "Steven Crockart, Ruaidhri MacKenzie, Callum Mcintosh, Patrick Murchie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NESCOL-Grouper/grouper/issues"
+  },
+  "homepage": "https://github.com/NESCOL-Grouper/grouper#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7",
+    "sass": "^1.32.8"
+  }
+}

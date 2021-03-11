@@ -1,0 +1,48 @@
+@use 'colours';
+@use 'text';
+@use 'components';
+
+*, *::before, *::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+}
+
+.header {
+	background-color: colours.$brand1;
+	border-bottom: 1px solid colours.$dark;
+
+	&__title {
+		@include text.title(colours.$light);
+	}
+}
+
+.main {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.user-list {
+	@include components.section;
+}
+
+.groups {
+	@include components.section;
+}
+
+.footer {
+	background-color: colours.$brand1;
+	border-top: 1px solid colours.$dark;
+
+	&__copyright {
+		@include text.body(colours.$light);
+		text-align: right;
+		font-size: 0.75rem;
+	}
+}

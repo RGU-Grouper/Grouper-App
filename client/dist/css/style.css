@@ -1,0 +1,55 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.header {
+  background-color: #000099;
+  border-bottom: 1px solid #010102;
+}
+.header__title {
+  font-family: "Times New Roman", serif;
+  font-size: 3rem;
+  line-height: 1.4;
+  padding: 0.5em;
+  text-align: center;
+  color: #f2f3f4;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.user-list {
+  border: 1px solid #010102;
+  background-color: #f2f3f4;
+}
+
+.groups {
+  border: 1px solid #010102;
+  background-color: #f2f3f4;
+}
+
+.footer {
+  background-color: #000099;
+  border-top: 1px solid #010102;
+}
+.footer__copyright {
+  font-family: Verdana, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 1em;
+  color: #f2f3f4;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+/*# sourceMappingURL=style.css.map */

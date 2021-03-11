@@ -16,4 +16,11 @@ const setMinimumSize = (size) => {
 // Assign users to groups
 const createGroups = () => {
 
+    group = [];
+    
+    var i;
+for (i = 0; i < group.length; i++) {
+    group.push("");
+} 
+
 };

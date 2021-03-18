@@ -1,9 +1,13 @@
 export const DOM = {
-	minSize: document.getElementById("minSize"),
-	groupNames: document.getElementById("groupNames"),
+	minSize: document.getElementById("min-size"),
+	groupNames: document.getElementById("group-names"),
 	groupList: document.querySelector(".group-list"),
 	createGroupsForm: document.querySelector(".create-groups"),
 	createGroupsButton: document.querySelector(".create-groups__button"),
+	userList: document.querySelector(".user-list"),
+	userListInput: document.querySelector(".user-list__input"),
+	userListButton: document.querySelector(".user-list__button"),
+	userTemplate: document.getElementById("user-template"),
 };
 
 export const createUserElement = name => {
@@ -40,5 +44,29 @@ export const displayGroups = groups => {
 export const clearGroupList = () => {
 	while (DOM.groupList.firstChild) {
 		DOM.groupList.removeChild(DOM.groupList.firstChild);
+	}
+};
+
+
+export const addUser = () => {
+	const name = DOM.userListInput.value;
+	DOM.userListInput.value = "";
+	DOM.userListInput.focus();
+	if (name === "") return;
+
+	const userElement = DOM.userTemplate.content.cloneNode(true);
+	userElement.querySelector(".user__name").textContent = name;
+	userElement.querySelector(".user__remove").onclick = removeUser;
+	DOM.userList.appendChild(userElement);
+	// clearUserList();
+};
+
+export const removeUser = event => {
+	DOM.userList.removeChild(event.target.parentNode);
+};
+
+const clearUserList = () => {
+	while (DOM.userList.firstChild) {
+		DOM.userList.removeChild(DOM.userList.firstChild);
 	}
 };

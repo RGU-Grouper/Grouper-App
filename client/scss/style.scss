@@ -29,7 +29,7 @@ body {
 	grid-template-columns: 1fr 1fr;
 }
 
-.user-list {
+.users {
 	@include components.section;
 }
 
@@ -48,9 +48,79 @@ body {
 	}
 }
 
-.group-list ul {
-	list-style-type: none;
-	margin: 1em;
-	padding: 0.5em;
+.create-groups {
+	display: grid;
+	grid-template-areas:
+		"title	title"
+		".			."
+		".			."
+		".			."
+		"button	button";
+	gap: 1em;
+
+	&__title {
+		grid-area: title;
+		text-align: center;
+	}
+
+	&__input {
+		padding: 0.5em;
+	}
+	
+	&__button {
+		grid-area: button;
+		justify-self: right;
+		background-color: colours.$brand1;
+		color: colours.$light;
+		font-size: 1rem;
+		padding: 0.5em 1em;
+		font-weight: 900;
+	}
+}
+
+.user-list {
+	display: flex;
+	flex-direction: column;
+
+	&__input {
+		padding: 0.5em;
+		font-size: 1rem;
+	}
+
+	&__button {
+		background-color: colours.$brand1;
+		color: colours.$light;
+		font-size: 1rem;
+		padding: 0.5em 1em;
+		font-weight: 900;
+		width: max-content;
+		align-self: flex-start;
+	}
+}
+
+.user {
+	display: flex;
+	justify-content: space-between;
+	margin: 0.25em;
+	padding: 0.25em;
 	background-color: #bbb;
+
+	&__name {
+
+	}
+
+	&__remove {
+		color: red;
+		font-weight: 900;
+		cursor: pointer;
+	}
+}
+
+.group-list {
+	& ul {
+		list-style-type: none;
+		margin: 1em;
+		padding: 0.5em;
+		background-color: #bbb;
+	}
 }

@@ -6,18 +6,10 @@ import { DOM, displayGroups } from './ui.js';
 // Get minimum users per group from user input
 const getMinimumSize = () => DOM.minSize.value;
 
-// Get names of potential group members from user input
-const getNameList = () => { 
-	//Get user list from text box as string
-	const nameString = DOM.groupNames.value;
-	
-	// Split string of names into a list
-	const nameList = nameString.split(" ");
-
-	// Shuffle the list of names into a random order
+const getNameList = () => {
+	const nameNodes = document.querySelectorAll(".user__name");
+	const nameList = [...nameNodes].map(node => node.textContent);
 	shuffle(nameList);
-
-	// Returns list of names
 	return nameList;
 };
 

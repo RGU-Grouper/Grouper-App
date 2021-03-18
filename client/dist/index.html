@@ -17,20 +17,25 @@
 	</header>
 
 	<main class="main">
-		<section class="user-list">
+		<section class="users">
 			<!--Form to get Minium Size of groups-->
-			<form><br>
-				Enter Minimum Group Size :<input type="text" id="minSize"/><br><br>
-				Enter Groupee Names
-				<br>
-				<br>
-				<input type="text" id="groupNames"/><br><br>
-				<button onclick="createGroups()">Allocate Members</button>
+			<form class="create-groups">
+				<h2 class="create-groups__title">Create Groups</h2>
+
+				<label class="create-groups__label" for="min-size">Enter Minimum Group Size:</label>
+				<input class="create-groups__input" id="min-size" type="number" />
+
+				<label class="create-groups__label" for="add-user">Enter Groupee Name:</label>
+				<input class="user-list__input" id="add-user" type="text" placeholder="Enter user name"/>
+				<button class="user-list__button">Add User</button>
+
+				<button class="create-groups__button">Allocate Members</button>
+				<ul class="user-list"></ul>
 			</form>
 
 		</section>
 		<section class="groups">
-			
+			<div class="group-list"></div>
 		</section>
 	</main>
 
@@ -38,7 +43,14 @@
 		<p class="footer__copyright">Steven Crockart, Ruaidhri MacKenzie, Callum Mcintosh, Patrick Murchie &copy; 2021</p>
 	</footer>
 
+	
+	<template id="user-template">
+		<li class="user">
+			<p class="user__name">Name</p>
+			<p class="user__remove">X</p>
+		</li>
+	</template>
+
 	<script type="module" src="js/script.js"></script>
-	<script type="module" src="../src/main.js"></script> <!--"Uncaught ReferenceError: createGroups is not defined" WHAT DO YOU MEAN BRO-->
 </body>
 </html>

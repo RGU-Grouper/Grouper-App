@@ -3,4 +3,5 @@
 @mixin section {
 	border: 1px solid colours.$dark;
 	background-color: colours.$light;
+	padding: 1em;
 }

@@ -39,7 +39,7 @@ body {
 
 .main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 3fr 2fr;
 }
 
 .users {
@@ -51,8 +51,9 @@ body {
       "title			title				title"
       "size-label	size-input	."
       "name-label	name-input	add-user"
-      "user-list	user-list		user-list"
-      "submit			submit			submit";
+      "user-list		user-list	submit";
+    justify-content: center;
+    align-items: center;
     gap: 1em;
   }
 
@@ -99,7 +100,7 @@ body {
 
   &__create-groups {
     grid-area: submit;
-    justify-self: right;
+    align-self: flex-start;
     background-color: colours.$brand1;
     color: colours.$light;
     font-size: 1rem;

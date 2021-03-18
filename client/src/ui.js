@@ -2,14 +2,13 @@
 
 // Looking up HTML elements is slow and so should be looked for once and a reference stored
 export const DOM = {
-	minSize: document.getElementById("min-size"),
-	groupNames: document.getElementById("group-names"),
-	groupList: document.querySelector(".group-list"),
-	createGroupsForm: document.querySelector(".create-groups"),
-	createGroupsButton: document.querySelector(".create-groups__button"),
-	userList: document.querySelector(".user-list"),
-	userListInput: document.querySelector(".user-list__input"),
-	userListButton: document.querySelector(".user-list__button"),
+	usersForm: document.querySelector(".users__form"),
+	usersMinSizeInput: document.querySelector(".users__min-size-input"),
+	usersNameInput: document.querySelector(".users__name-input"),
+	usersList: document.querySelector(".users__list"),
+	usersAddUser: document.querySelector(".users__add-user"),
+	usersCreateGroups: document.querySelector(".users__create-groups"),
+	groupsList: document.querySelector(".groups__list"),
 	userTemplate: document.getElementById("user-template"),
 };
 
@@ -24,6 +23,7 @@ export const createGroupUserElement = name => {
 export const createGroupElement = (group, groupIndex) => {
 	// Create group element
 	const groupElement = document.createElement("ul");
+	groupElement.classList.add("groups__group");
 
 	// Create and add group title
 	const groupTitleElement = document.createElement("h3");
@@ -43,39 +43,39 @@ export const createGroupElement = (group, groupIndex) => {
 export const displayGroups = groups => {
 	clearGroupList();
 	groups.forEach((group, index) => {
-		DOM.groupList.appendChild(createGroupElement(group, index + 1));
+		DOM.groupsList.appendChild(createGroupElement(group, index + 1));
 	});
 }
 
 // Remove all group elements from the group-list
 export const clearGroupList = () => {
-	while (DOM.groupList.firstChild) {
-		DOM.groupList.removeChild(DOM.groupList.firstChild);
+	while (DOM.groupsList.firstChild) {
+		DOM.groupsList.removeChild(DOM.groupsList.firstChild);
 	}
 };
 
 // Adds a user to the user-list
 export const addUser = () => {
-	const name = DOM.userListInput.value;
-	DOM.userListInput.value = "";
-	DOM.userListInput.focus();
+	const name = DOM.usersNameInput.value;
+	DOM.usersNameInput.value = "";
+	DOM.usersNameInput.focus();
 	if (name === "") return;
 
 	const userElement = DOM.userTemplate.content.cloneNode(true);
 	userElement.querySelector(".user__name").textContent = name;
 	userElement.querySelector(".user__remove").onclick = removeUser;
-	DOM.userList.appendChild(userElement);
+	DOM.usersList.appendChild(userElement);
 	// clearUserList();
 };
 
 // Removes a user from the user-list
 export const removeUser = event => {
-	DOM.userList.removeChild(event.target.parentNode);
+	DOM.usersList.removeChild(event.target.parentNode);
 };
 
 // Remove all users from the user-list
 const clearUserList = () => {
-	while (DOM.userList.firstChild) {
-		DOM.userList.removeChild(DOM.userList.firstChild);
+	while (DOM.usersList.firstChild) {
+		DOM.usersList.removeChild(DOM.usersList.firstChild);
 	}
 };

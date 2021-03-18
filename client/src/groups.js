@@ -4,7 +4,7 @@ import { shuffle } from './utils.js';
 import { DOM, displayGroups } from './ui.js';
 
 // Get minimum users per group from user input
-const getMinimumSize = () => DOM.minSize.value;
+const getMinimumSize = () => DOM.usersMinSizeInput.value;
 
 // Get list of users names from user input
 const getNameList = () => {

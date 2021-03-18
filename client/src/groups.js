@@ -25,6 +25,7 @@ export const createGroups = () => {
 	// Matrix to hold all groups
 	const groups = [];
 
+	// Loop through users and add to a group or create a new one
 	nameList.forEach((name, index) => {
 		const groupIndex = index % groupCount;
 

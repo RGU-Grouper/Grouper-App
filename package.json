@@ -4,8 +4,8 @@
   "description": "App for creating subgroups of a preferred size.",
   "main": "server/app.js",
   "scripts": {
-		"webpack": "webpack -c webpack.config.js",
-		"sass": "sass --watch client/scss:client/dist/css",
+    "webpack": "webpack -c webpack.config.js",
+    "sass": "sass --watch client/scss:client/dist/css",
     "client": "concurrently \"npm run sass\" \"npm run webpack\"",
     "dev": "concurrently \"nodemon server/app.js\" \"npm run client\"",
     "start": "node server/app.js"

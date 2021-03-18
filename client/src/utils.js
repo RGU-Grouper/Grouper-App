@@ -1,5 +1,6 @@
 // Utility Functions
 
+// Shuffles the order of elements in an array - changes original array
 export const shuffle = (array) => {
 	let currentIndex = array.length;
 

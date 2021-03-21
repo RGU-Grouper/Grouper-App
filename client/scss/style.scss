@@ -58,38 +58,36 @@ body {
   }
 
   &__title {
+    @include text.title(colours.$dark);
     grid-area: title;
     text-align: center;
   }
 
   &__min-size-label {
+    @include components.label;
     grid-area: size-label;
   }
 
   &__min-size-input {
+    @include components.input;
     grid-area: size-input;
-    padding: 0.5em;
   }
 
   &__name-label {
+    @include components.label;
     grid-area: name-label;
   }
 
   &__name-input {
+    @include components.input;
     grid-area: name-input;
-    padding: 0.5em;
-    font-size: 1rem;
   }
 
   &__add-user {
+    @include components.button;
     grid-area: add-user;
-    background-color: colours.$brand1;
-    color: colours.$light;
-    font-size: 1rem;
-    padding: 0.5em 1em;
-    font-weight: 900;
-    width: max-content;
     align-self: flex-start;
+    width: max-content;
   }
 
   &__list {
@@ -99,13 +97,9 @@ body {
   }
 
   &__create-groups {
+    @include components.button;
     grid-area: submit;
     align-self: flex-start;
-    background-color: colours.$brand1;
-    color: colours.$light;
-    font-size: 1rem;
-    padding: 0.5em 1em;
-    font-weight: 900;
   }
 }
 

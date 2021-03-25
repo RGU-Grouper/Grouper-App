@@ -49,28 +49,23 @@ body {
     display: grid;
     grid-template-areas:
       "title			title				title"
-      "size-label	size-input	."
       "name-label	name-input	add-user"
-      "user-list		user-list	submit";
+      "size-label	size-input	submit"
+      "user-list		user-list	user-list";
     justify-content: center;
     align-items: center;
     gap: 1em;
+    background-color: white;
+    border: 1px solid black;
+    width: max-content;
+    margin: 0 auto;
+    padding: 1em;
   }
 
   &__title {
     @include text.title(colours.$dark);
     grid-area: title;
     text-align: center;
-  }
-
-  &__min-size-label {
-    @include components.label;
-    grid-area: size-label;
-  }
-
-  &__min-size-input {
-    @include components.input;
-    grid-area: size-input;
   }
 
   &__name-label {
@@ -86,20 +81,34 @@ body {
   &__add-user {
     @include components.button;
     grid-area: add-user;
-    align-self: flex-start;
     width: max-content;
+    margin: auto;
+  }
+
+  &__min-size-label {
+    @include components.label;
+    grid-area: size-label;
+  }
+
+  &__min-size-input {
+    @include components.input;
+    grid-area: size-input;
+    text-align: center;
+  }
+
+  &__create-groups {
+    @include components.button;
+    grid-area: submit;
+    margin: auto;
   }
 
   &__list {
     grid-area: user-list;
     display: flex;
     flex-direction: column;
-  }
-
-  &__create-groups {
-    @include components.button;
-    grid-area: submit;
-    align-self: flex-start;
+    background-color: colours.$brand1;
+    padding: 0.5em;
+    margin: 0 3em;
   }
 }
 
@@ -123,6 +132,10 @@ body {
 
 .groups {
   @include components.section;
+
+  &__title {
+    @include text.title(colours.$dark);
+  }
 
   &__group {
     list-style-type: none;

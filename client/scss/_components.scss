@@ -16,9 +16,15 @@
 }
 
 @mixin button {
+  cursor: pointer;
   background-color: colours.$brand1;
   color: colours.$light;
   font-size: 1rem;
   padding: 0.5em 1em;
   font-weight: 900;
+
+  &:focus,
+  &:hover {
+    background-color: colours.$brand2;
+  }
 }

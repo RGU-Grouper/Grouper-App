@@ -20,9 +20,17 @@ body {
 .header {
   background-color: colours.$brand1;
   border-bottom: 1px solid colours.$dark;
+  display: flex;
+  align-items: center;
+
+  &__logo {
+    max-height: 120px;
+    padding: 1em;
+  }
 
   &__title {
     @include text.title(colours.$light);
+    font-size: 3rem;
   }
 }
 

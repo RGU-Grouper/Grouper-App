@@ -4,10 +4,8 @@
   "description": "App for creating subgroups of a preferred size.",
   "main": "server/app.js",
   "scripts": {
-    "webpack": "webpack -c webpack.config.js",
-    "sass": "sass --watch client/scss:client/dist/css",
-    "client": "concurrently \"npm run sass\" \"npm run webpack\"",
-    "dev": "concurrently \"nodemon server/app.js\" \"npm run client\"",
+    "sass": "sass --watch client/scss:client/css",
+    "dev": "concurrently \"nodemon server/app.js\" \"npm run sass\"",
     "start": "node server/app.js"
   },
   "repository": {
@@ -26,8 +24,6 @@
   "devDependencies": {
     "concurrently": "^6.0.0",
     "nodemon": "^2.0.7",
-    "sass": "^1.32.8",
-    "webpack": "^5.24.4",
-    "webpack-cli": "^4.5.0"
+    "sass": "^1.32.8"
   }
 }

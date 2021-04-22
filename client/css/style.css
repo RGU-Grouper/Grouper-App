@@ -1,0 +1,202 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  font-family: Verdana, sans-serif;
+}
+
+.header {
+  background-color: #000099;
+  border-bottom: 1px solid #010102;
+  display: flex;
+  align-items: center;
+}
+.header__logo {
+  max-height: 120px;
+  padding: 1em;
+}
+.header__title {
+  font-family: "Times New Roman", serif;
+  line-height: 1.1;
+  padding: 0.5em;
+  text-align: center;
+  color: #f2f3f4;
+  font-size: 3rem;
+}
+
+.footer {
+  background-color: #000099;
+  border-top: 1px solid #010102;
+}
+.footer__copyright {
+  font-family: Verdana, sans-serif;
+  line-height: 1.6;
+  padding: 1em;
+  color: #f2f3f4;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+
+.users {
+  border: 1px solid #010102;
+  background-color: #f2f3f4;
+  padding: 1em;
+}
+.users__form {
+  display: grid;
+  grid-template-areas: "title				title				title" "name-label		name-input	add-user" "email-label	email-input	add-user" "size-label		size-input	submit" "user-list		user-list		user-list";
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  background-color: white;
+  border: 1px solid black;
+  width: max-content;
+  margin: 0 auto;
+  padding: 1em;
+}
+.users__title {
+  font-family: "Times New Roman", serif;
+  line-height: 1.1;
+  padding: 0.5em;
+  text-align: center;
+  color: #010102;
+  grid-area: title;
+  text-align: center;
+}
+.users__name-label {
+  padding: 1em;
+  grid-area: name-label;
+}
+.users__name-input {
+  font-size: 1rem;
+  padding: 0.5em;
+  grid-area: name-input;
+}
+.users__email-label {
+  padding: 1em;
+  grid-area: email-label;
+}
+.users__email-input {
+  font-size: 1rem;
+  padding: 0.5em;
+  grid-area: email-input;
+}
+.users__add-user {
+  cursor: pointer;
+  background-color: #000099;
+  color: #f2f3f4;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  font-weight: 900;
+  grid-area: add-user;
+  width: max-content;
+  margin: auto;
+}
+.users__add-user:focus, .users__add-user:hover {
+  background-color: #6fb3e4;
+}
+.users__min-size-label {
+  padding: 1em;
+  grid-area: size-label;
+}
+.users__min-size-input {
+  font-size: 1rem;
+  padding: 0.5em;
+  grid-area: size-input;
+  text-align: center;
+}
+.users__create-groups {
+  cursor: pointer;
+  background-color: #000099;
+  color: #f2f3f4;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  font-weight: 900;
+  grid-area: submit;
+  margin: auto;
+}
+.users__create-groups:focus, .users__create-groups:hover {
+  background-color: #6fb3e4;
+}
+.users__list {
+  grid-area: user-list;
+  display: flex;
+  flex-direction: column;
+  background-color: #000099;
+  padding: 0.5em;
+  margin: 0 3em;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.25em;
+  padding: 0.25em;
+  background-color: #bbb;
+}
+.user__name {
+  font-size: 1rem;
+}
+.user__remove {
+  color: red;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.groups {
+  border: 1px solid #010102;
+  background-color: #f2f3f4;
+  padding: 1em;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-content: center;
+}
+.groups__title {
+  font-family: "Times New Roman", serif;
+  line-height: 1.1;
+  padding: 0.5em;
+  text-align: center;
+  color: #010102;
+}
+.groups__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.groups__group {
+  list-style-type: none;
+  margin: 1em;
+  padding: 1em;
+  background-color: #bbb;
+  border-radius: 10px;
+  height: max-content;
+  flex-basis: 30%;
+  text-align: center;
+}
+.groups__email {
+  cursor: pointer;
+  background-color: #000099;
+  color: #f2f3f4;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  font-weight: 900;
+}
+.groups__email:focus, .groups__email:hover {
+  background-color: #6fb3e4;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -23,8 +23,10 @@
 			<form class="users__form">
 				<h2 class="users__title">Create Groups</h2>
 				
-				<label class="users__name-label" for="add-user">Enter User Name:</label>
-				<input class="users__name-input" id="add-user" type="text" placeholder="Enter user name"/>
+				<label class="users__name-label" for="add-user-name">Enter User Name:</label>
+				<input class="users__name-input" id="add-user-name" type="text" placeholder="Enter user name"/>
+				<label class="users__email-label" for="add-user-email">Enter User Email:</label>
+				<input class="users__email-input" id="add-user-email" type="email" placeholder="Enter user email"/>
 				<button class="users__add-user">Add User</button>
 				
 				<label class="users__min-size-label" for="min-size">Enter Minimum Group Size:</label>
@@ -37,6 +39,7 @@
 		<section class="groups">
 			<h2 class="groups__title">Groups List</h2>
 			<div class="groups__list"></div>
+			<button class="groups__email">Email Groups</button>
 		</section>
 	</main>
 
@@ -48,6 +51,7 @@
 	<template id="user-template">
 		<li class="user">
 			<p class="user__name">Name</p>
+			<p class="user__email">Email</p>
 			<p class="user__remove">X</p>
 		</li>
 	</template>

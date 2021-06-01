@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/NESCOL-Grouper/grouper#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemailer": "^6.6.1"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",

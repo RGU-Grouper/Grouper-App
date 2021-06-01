@@ -157,13 +157,14 @@ body {
 
   &__title {
     @include text.title(colours.$dark);
+    margin-bottom: 2em;
   }
 
   &__list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
 
   &__group {
@@ -172,8 +173,6 @@ body {
     padding: 1em;
     background-color: #bbb;
     border-radius: 10px;
-    height: max-content;
-    flex-basis: 30%;
     text-align: center;
   }
 

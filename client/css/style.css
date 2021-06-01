@@ -170,12 +170,13 @@ body {
   padding: 0.5em;
   text-align: center;
   color: #010102;
+  margin-bottom: 2em;
 }
 .groups__list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .groups__group {
   list-style-type: none;
@@ -183,8 +184,6 @@ body {
   padding: 1em;
   background-color: #bbb;
   border-radius: 10px;
-  height: max-content;
-  flex-basis: 30%;
   text-align: center;
 }
 .groups__email {

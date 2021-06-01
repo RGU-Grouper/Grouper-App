@@ -32,8 +32,6 @@ router.post('/', (req, res) => {
 		const groups = req.body.data;
 		groups.forEach((group, index) => {
 			group.forEach(user => {
-				console.log(`Group ${index + 1}: ${user.name} - ${user.email}`);
-				
 				// Email user with group number
 				const text = `Hi ${user.name}! You are now a part of group ${index + 1}!`;
 				
@@ -49,16 +47,17 @@ router.post('/', (req, res) => {
 					}
 					else {
 						// console.log(info);
+						console.log(`Group ${index + 1}: ${user.name} - ${user.email}`);
 					}
 				});
 			});
 		});
 		
-		res.send({ data: true });
+		res.sendStatus(200);
 	}
 	catch(err) {
 		console.log(err);
-		res.send({ data: false });
+		res.sendStatus(500);
 	}
 });
 

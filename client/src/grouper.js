@@ -1,5 +1,4 @@
 import User from "./user.js";
-import { get, post } from "./httpRequests.js";
 
 class Grouper {
 	constructor() {
@@ -86,9 +85,13 @@ class Grouper {
 			return false;
 		}
 		
-		const res = await post("/group", { data: this.groups });
-
-		if (!res.data) {
+		let res = await fetch("/group", {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ data: this.groups }),
+		});
+		
+		if (res.status !== 200) {
 			console.log("Failed to email users.");
 			return false;
 		}

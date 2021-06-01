@@ -1,4 +1,4 @@
-import Grouper from "./grouper.js";
+import GrouperUI from "./grouper.js";
 
 // Entry Point
-const grouper = new Grouper();
+const grouper = new GrouperUI();

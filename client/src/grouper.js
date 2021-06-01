@@ -1,64 +1,40 @@
 import User from "./user.js";
+import { get, post } from "./httpRequests.js";
 
-export default class Grouper {
+class Grouper {
 	constructor() {
-		this.$userTemplate = document.getElementById("user-template");
-		this.$userList = document.querySelector(".users__list");
-		this.$usersNameInput = document.querySelector(".users__name-input");
-		this.$usersEmailInput = document.querySelector(".users__email-input");
-		this.$usersForm = document.querySelector(".users__form");
-		this.$usersAddUser = document.querySelector(".users__add-user");
-		this.$usersCreateGroups = document.querySelector(".users__create-groups");
-		this.$groupsList = document.querySelector(".groups__list");
-		this.$usersMinSizeInput = document.querySelector(".users__min-size-input");
-
-		this.$usersForm.onsubmit = event => event.preventDefault();
-		this.$usersCreateGroups.onclick = this.createGroups.bind(this);
-		this.$usersAddUser.onclick = this.addUser.bind(this);
-
 		this.userList = [];
+		this.groups = [];
+		this.currentGroupsEmailed = false;
 	}
 
 	// Add a user to the user-list
-	addUser() {
-		const name = this.$usersNameInput.value;
-		if (name === "") return;
-		const email = this.$usersEmailInput.value;
-		if (email === "") return;
-
+	addUser(name, email) {
 		const existingUsersNames = this.userList.map(user => user.name);
+
 		if (existingUsersNames.includes(name)) {
 			console.log("User already exists with that name.");
-			return;
+			return false;
 		}
-
-		this.$usersNameInput.value = "";
-		this.$usersEmailInput.value = "";
-		this.$usersNameInput.focus();
-
-		const user = new User(name, email);
-		this.userList.push(user);
-
-		const $userElement = this.$userTemplate.content.cloneNode(true).firstElementChild;
-		$userElement.setAttribute("data-id", name);
-		$userElement.querySelector(".user__name").textContent = name;
-		$userElement.querySelector(".user__email").textContent = email;
-		$userElement.querySelector(".user__remove").onclick = this.removeUser.bind(this);
-		this.$userList.appendChild($userElement);
+		else {
+			const user = new User(name, email);
+			this.userList.push(user);
+			return true;
+		}
 	}
 
 	// Remove a user from the user-list
-	removeUser(event) {
-		const $user = event.target.parentNode;
-		const name = $user.dataset.id;
-
+	removeUser(name) {
 		const user = this.userList.find(u => u.name === name);
 		if (user) {
 			const index = this.userList.indexOf(user);
 			this.userList.splice(index, 1);
-			this.$userList.removeChild($user);
+			return true;
 		}
-	};
+		else {
+			return false;
+		}
+	}
 
 	// Return a shuffled copy of the user-list
 	getShuffledUserList() {
@@ -79,37 +55,116 @@ export default class Grouper {
 		return shuffledUserList;
 	}
 
-	// Assign users to groups
-	createGroups() {
+	// Populate the group-list with group elements
+	createGroups(minSize) {
 		const userList = this.getShuffledUserList();
-		const minSize = this.$usersMinSizeInput.value;
-
+		
 		// Calculate the number of groups
 		const groupCount = Math.floor(userList.length / minSize);
-
-		// Matrix to hold all groups
-		const groups = [];
-
+		
+		// Reset groups
+		this.groups = [];
+		
 		// Loop through users and add to a group or create a new one
 		userList.forEach((user, index) => {
 			const groupIndex = index % groupCount;
-
-			if (groups[groupIndex]) {
-				groups[groupIndex].push(user);
+			
+			if (this.groups[groupIndex]) {
+				this.groups[groupIndex].push(user);
 			}
 			else {
-				groups[groupIndex] = [user];
+				this.groups[groupIndex] = [user];
 			}
 		});
 
-		// Display groups
-		this.displayGroups(groups);
+		this.currentGroupsEmailed = false;
+	}
+	
+	async emailGroups() {
+		if (this.currentGroupsEmailed) {
+			console.log("Current groups have already been emailed.");
+			return false;
+		}
+		
+		const res = await post("/group", { data: this.groups });
+
+		if (!res.data) {
+			console.log("Failed to email users.");
+			return false;
+		}
+
+		console.log("Users emailed successfully.");
+		this.currentGroupsEmailed = true;
+		return true;
+	}
+}
+
+export default class GrouperUI extends Grouper {
+	constructor() {
+		super();
+
+		this.$userTemplate = document.getElementById("user-template");
+		this.$userList = document.querySelector(".users__list");
+		this.$usersNameInput = document.querySelector(".users__name-input");
+		this.$usersEmailInput = document.querySelector(".users__email-input");
+		this.$usersForm = document.querySelector(".users__form");
+		this.$usersAddUser = document.querySelector(".users__add-user");
+		this.$usersCreateGroups = document.querySelector(".users__create-groups");
+		this.$usersMinSizeInput = document.querySelector(".users__min-size-input");
+		this.$groupsList = document.querySelector(".groups__list");
+		this.$groupsEmail = document.querySelector(".groups__email");
+
+		this.$usersForm.onsubmit = event => event.preventDefault();
+		this.$usersCreateGroups.onclick = this.createGroups.bind(this);
+		this.$usersAddUser.onclick = this.addUser.bind(this);
+		this.$groupsEmail.onclick = this.emailGroups.bind(this);
+	}
+
+	// Add a user to the user-list
+	addUser() {
+		const name = this.$usersNameInput.value;
+		if (name === "") return;
+		const email = this.$usersEmailInput.value;
+		if (email === "") return;
+
+		const success = super.addUser(name, email);
+		if (!success) return;
+
+		this.$usersNameInput.value = "";
+		this.$usersEmailInput.value = "";
+		this.$usersNameInput.focus();
+
+		const $userElement = this.$userTemplate.content.cloneNode(true).firstElementChild;
+		$userElement.setAttribute("data-id", name);
+		$userElement.querySelector(".user__name").textContent = name;
+		$userElement.querySelector(".user__email").textContent = email;
+		$userElement.querySelector(".user__remove").onclick = this.removeUser.bind(this);
+		this.$userList.appendChild($userElement);
+	}
+
+	// Remove a user from the user-list
+	removeUser(event) {
+		const $user = event.target.parentNode;
+		const name = $user.dataset.id;
+
+		const success = super.removeUser(name);
+		if (success) {
+			this.$userList.removeChild($user);
+		}
+	};
+
+	// Assign users to groups
+	createGroups() {
+		const minSize = this.$usersMinSizeInput.value;
+		super.createGroups(minSize);
+
+		this.displayGroups();
 	}
 
 	// Populate the group-list with group elements
-	displayGroups(groups) {
+	displayGroups() {
 		this.clearGroupList();
-		groups.forEach((group, index) => {
+		this.groups.forEach((group, index) => {
 			const $groupElement = this.createGroupElement(group, index + 1);
 			this.$groupsList.appendChild($groupElement);
 		});

@@ -5,178 +5,206 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  font-family: Verdana, sans-serif;
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	font-family: Verdana, sans-serif;
 }
 
 .header {
-  background-color: colours.$brand1;
-  border-bottom: 1px solid colours.$dark;
-  display: flex;
-  align-items: center;
+	background-color: colours.$brand1;
+	border-bottom: 1px solid colours.$dark;
+	display: flex;
+	align-items: center;
 
-  &__logo {
-    max-height: 120px;
-    padding: 1em;
-  }
+	&__logo {
+		max-height: 120px;
+		padding: 1em;
+	}
 
-  &__title {
-    @include text.title(colours.$light);
-    font-size: 3rem;
-  }
+	&__title {
+		@include text.title(colours.$light);
+		font-size: 3rem;
+	}
 }
 
 .footer {
-  background-color: colours.$brand1;
-  border-top: 1px solid colours.$dark;
+	background-color: colours.$brand1;
+	border-top: 1px solid colours.$dark;
 
-  &__copyright {
-    @include text.body(colours.$light);
-    text-align: right;
-    font-size: 0.75rem;
-  }
+	&__copyright {
+		@include text.body(colours.$light);
+		text-align: right;
+		font-size: 0.75rem;
+	}
 }
 
 .main {
-  display: grid;
-  grid-template-columns: 3fr 2fr;
+	display: grid;
+	grid-template-columns: 3fr 2fr;
 }
 
 .users {
-  @include components.section;
+	@include components.section;
 
-  &__form {
-    display: grid;
-    grid-template-areas:
-      "title				title				title"
-      "name-label		name-input	add-user"
-      "email-label	email-input	add-user"
-      "size-label		size-input	submit"
-      "user-list		user-list		user-list";
-    justify-content: center;
-    align-items: center;
-    gap: 1em;
-    background-color: white;
-    border: 1px solid black;
-    width: max-content;
-    margin: 0 auto;
-    padding: 1em;
-  }
+	&__form {
+		display: grid;
+		grid-template-areas:
+			"title				title				title"
+			"name-label		name-input	add-user"
+			"email-label	email-input	add-user"
+			"size-label		size-input	submit"
+			"user-list		user-list		user-list"
+			".						santa				.";
+		justify-content: center;
+		align-items: center;
+		gap: 1em;
+		background-color: white;
+		border: 1px solid black;
+		width: max-content;
+		margin: 0 auto;
+		padding: 1em;
+	}
 
-  &__title {
-    @include text.title(colours.$dark);
-    grid-area: title;
-    text-align: center;
-  }
+	&__title {
+		@include text.title(colours.$dark);
+		grid-area: title;
+		text-align: center;
+	}
 
-  &__name-label {
-    @include components.label;
-    grid-area: name-label;
-  }
+	&__name-label {
+		@include components.label;
+		grid-area: name-label;
+	}
 
-  &__name-input {
-    @include components.input;
-    grid-area: name-input;
-  }
+	&__name-input {
+		@include components.input;
+		grid-area: name-input;
+	}
 
-  &__email-label {
-    @include components.label;
-    grid-area: email-label;
-  }
+	&__email-label {
+		@include components.label;
+		grid-area: email-label;
+	}
 
-  &__email-input {
-    @include components.input;
-    grid-area: email-input;
-  }
+	&__email-input {
+		@include components.input;
+		grid-area: email-input;
+	}
 
-  &__add-user {
-    @include components.button;
-    grid-area: add-user;
-    width: max-content;
-    margin: auto;
-  }
+	&__add-user {
+		@include components.button;
+		grid-area: add-user;
+		width: max-content;
+		margin: auto;
+	}
 
-  &__min-size-label {
-    @include components.label;
-    grid-area: size-label;
-  }
+	&__min-size-label {
+		@include components.label;
+		grid-area: size-label;
+	}
 
-  &__min-size-input {
-    @include components.input;
-    grid-area: size-input;
-    text-align: center;
-  }
+	&__min-size-input {
+		@include components.input;
+		grid-area: size-input;
+		text-align: center;
+	}
 
-  &__create-groups {
-    @include components.button;
-    grid-area: submit;
-    margin: auto;
-  }
+	&__create-groups {
+		@include components.button;
+		grid-area: submit;
+		margin: auto;
+	}
 
-  &__list {
-    grid-area: user-list;
-    display: flex;
-    flex-direction: column;
-    background-color: colours.$brand1;
-    padding: 0.5em;
-    margin: 0 3em;
-  }
+	&__list {
+		grid-area: user-list;
+		display: flex;
+		flex-direction: column;
+		background-color: colours.$brand1;
+		padding: 0.5em;
+		margin: 0 3em;
+	}
+
+	&__secret-santa {
+		grid-area: santa;
+		@include components.button;
+	}
 }
 
 .user {
-  display: flex;
-  justify-content: space-between;
-  margin: 0.25em;
-  padding: 0.25em;
-  background-color: #bbb;
+	display: flex;
+	justify-content: space-between;
+	margin: 0.25em;
+	padding: 0.25em;
+	background-color: #bbb;
 
-  &__name {
-    font-size: 1rem;
-  }
+	&__name {
+		font-size: 1rem;
+	}
 
-  &__remove {
-    color: red;
-    font-weight: 900;
-    cursor: pointer;
-  }
+	&__remove {
+		color: red;
+		font-weight: 900;
+		cursor: pointer;
+	}
 }
 
 .groups {
-  @include components.section;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  justify-content: center;
+	@include components.section;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	justify-content: center;
 
-  &__title {
-    @include text.title(colours.$dark);
-    margin-bottom: 2em;
-  }
+	&__title {
+		@include text.title(colours.$dark);
+		margin-bottom: 2em;
+	}
 
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-  }
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: flex-start;
+	}
 
-  &__group {
-    list-style-type: none;
-    margin: 1em;
-    padding: 1em;
-    background-color: #bbb;
-    border-radius: 10px;
-    text-align: center;
-  }
+	&__group {
+		list-style-type: none;
+		margin: 1em;
+		padding: 1em;
+		background-color: #bbb;
+		border-radius: 10px;
+		text-align: center;
+	}
 
-  &__email {
-    @include components.button;
-  }
+	&__email {
+		@include components.button;
+	}
+}
+
+.popup {
+	position: fixed;
+	bottom: 5em;
+	left: 25vw;
+	right: 25vw;
+	height: 5em;
+	background-color: colours.$brand2;
+	border: 4px solid colours.$brand1;
+	border-radius: 10px;
+	padding: 1em;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	transition: opacity 400ms;
+
+	&--active {
+		opacity: 1;
+	}
 }

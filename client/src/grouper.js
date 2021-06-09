@@ -7,36 +7,33 @@ class Grouper {
 		this.currentGroupsEmailed = false;
 	}
 
-	// Add a user to the user-list
+	// Add a user to the user-list, returns integer error codes, 0 for success
 	addUser(name, email) {
-		const existingUsersNames = this.userList.map(user => user.name);
-		const existingUsersEmails = this.userList.map(user => user.email);
+		const existingUsersNames = this.userList.map((user) => user.name);
+		const existingUsersEmails = this.userList.map((user) => user.email);
 
 		if (existingUsersNames.includes(name)) {
 			console.log("User already exists with that name.");
-			return false;
-		}
-		else if (existingUsersEmails.includes(email)) {
+			return 1;
+		} else if (existingUsersEmails.includes(email)) {
 			console.log("User already exists with that email.");
-			return false;
-		}
-		else {
+			return 2;
+		} else {
 			const user = new User(name, email);
 			this.userList.push(user);
-			return true;
+			return 0;
 		}
 	}
 
-	// Remove a user from the user-list
+	// Remove a user from the user-list, returns integer error codes, 0 for success
 	removeUser(name) {
-		const user = this.userList.find(u => u.name === name);
+		const user = this.userList.find((u) => u.name === name);
 		if (user) {
 			const index = this.userList.indexOf(user);
 			this.userList.splice(index, 1);
-			return true;
-		}
-		else {
-			return false;
+			return 0;
+		} else {
+			return 1;
 		}
 	}
 
@@ -62,48 +59,72 @@ class Grouper {
 	// Populate the group-list with group elements
 	createGroups(minSize) {
 		const userList = this.getShuffledUserList();
-		
+
 		// Calculate the number of groups
 		const groupCount = Math.floor(userList.length / minSize);
-		
+
 		// Reset groups
 		this.groups = [];
-		
+
 		// Loop through users and add to a group or create a new one
 		userList.forEach((user, index) => {
 			const groupIndex = index % groupCount;
-			
+
 			if (this.groups[groupIndex]) {
 				this.groups[groupIndex].push(user);
-			}
-			else {
+			} else {
 				this.groups[groupIndex] = [user];
 			}
 		});
 
 		this.currentGroupsEmailed = false;
 	}
-	
+
+	// Send an email to each user with their group number, returns integer error codes, 0 for success
 	async emailGroups() {
 		if (this.currentGroupsEmailed) {
 			console.log("Current groups have already been emailed.");
-			return false;
+			return 1;
 		}
-		
+
 		let res = await fetch("/group", {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ data: this.groups }),
 		});
-		
+
 		if (res.status !== 200) {
 			console.log("Failed to email users.");
-			return false;
+			return 2;
 		}
 
 		console.log("Users emailed successfully.");
 		this.currentGroupsEmailed = true;
-		return true;
+		return 0;
+	}
+
+	// Send an email to each user with the name of another random user. Each user should emailed and referenced once. Returns integer error codes, 0 for success
+	async secretSanta() {
+		if (this.userList.length < 3) {
+			console.log("At least 3 users required in the user list.");
+			return 1;
+		}
+
+		const shuffledUserList = this.getShuffledUserList();
+
+		let res = await fetch("/group/santa", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ data: shuffledUserList }),
+		});
+
+		if (res.status !== 200) {
+			console.log("Failed to email users.");
+			return 2;
+		}
+
+		console.log("Users emailed successfully.");
+		return 0;
 	}
 }
 
@@ -119,24 +140,44 @@ export default class GrouperUI extends Grouper {
 		this.$usersAddUser = document.querySelector(".users__add-user");
 		this.$usersCreateGroups = document.querySelector(".users__create-groups");
 		this.$usersMinSizeInput = document.querySelector(".users__min-size-input");
+		this.$usersSecretSanta = document.querySelector(".users__secret-santa");
 		this.$groupsList = document.querySelector(".groups__list");
 		this.$groupsEmail = document.querySelector(".groups__email");
+		this.$popup = document.querySelector(".popup");
 
-		this.$usersForm.onsubmit = event => event.preventDefault();
+		this.$usersForm.onsubmit = (event) => event.preventDefault();
 		this.$usersCreateGroups.onclick = this.createGroups.bind(this);
 		this.$usersAddUser.onclick = this.addUser.bind(this);
+		this.$usersSecretSanta.onclick = this.secretSanta.bind(this);
 		this.$groupsEmail.onclick = this.emailGroups.bind(this);
+
+		this.popupTimeout = null;
 	}
 
 	// Add a user to the user-list
 	addUser() {
 		const name = this.$usersNameInput.value;
-		if (name === "") return;
+		if (name === "") {
+			this.showPopup("Please enter a user name.");
+			return;
+		}
 		const email = this.$usersEmailInput.value;
-		if (email === "") return;
+		if (email === "") {
+			this.showPopup("Please enter a valid email address.");
+			return;
+		}
 
-		const success = super.addUser(name, email);
-		if (!success) return;
+		const error = super.addUser(name, email);
+		if (error) {
+			if (error === 1) {
+				this.showPopup("User already exists with that name. Please select another.");
+			} else if (error === 2) {
+				this.showPopup("User already exists with that email. Please select another.");
+			} else {
+				this.showPopup("An error occured while attempting to add user.");
+			}
+			return;
+		}
 
 		this.$usersNameInput.value = "";
 		this.$usersEmailInput.value = "";
@@ -155,27 +196,26 @@ export default class GrouperUI extends Grouper {
 		const $user = event.target.parentNode;
 		const name = $user.dataset.id;
 
-		const success = super.removeUser(name);
-		if (success) {
+		const error = super.removeUser(name);
+		if (error) {
+			this.showPopup("An error occured while attempting to remove user.");
+		} else {
 			this.$userList.removeChild($user);
 		}
-	};
+	}
 
 	// Assign users to groups
 	createGroups() {
 		const minSize = this.$usersMinSizeInput.value;
 		super.createGroups(minSize);
 
-		this.displayGroups();
-	}
-
-	// Populate the group-list with group elements
-	displayGroups() {
 		this.clearGroupList();
 		this.groups.forEach((group, index) => {
 			const $groupElement = this.createGroupElement(group, index + 1);
 			this.$groupsList.appendChild($groupElement);
 		});
+
+		this.showPopup("Random groups have been created!");
 	}
 
 	// Remove all group elements from the group-list
@@ -183,6 +223,36 @@ export default class GrouperUI extends Grouper {
 		while (this.$groupsList.firstChild) {
 			this.$groupsList.removeChild(this.$groupsList.firstChild);
 		}
+	}
+
+	// Send an email to each user with their group number
+	async emailGroups() {
+		const error = await super.emailGroups();
+		if (error) {
+			if (error === 1) {
+				this.showPopup("Current groups have already been emailed.");
+			} else {
+				this.showPopup("Failed to email users.");
+			}
+			return;
+		}
+
+		this.showPopup("Groups emailed successfully!");
+	}
+
+	// Send an email to each user with the name of another random user. Each user should emailed and referenced once.
+	async secretSanta() {
+		const error = await super.secretSanta();
+		if (error) {
+			if (error === 1) {
+				this.showPopup("At least 3 users required in the user list.");
+			} else if (error === 2) {
+				this.showPopup("Failed to email users.");
+			}
+			return;
+		}
+
+		this.showPopup("Secret Santa emailed successfully!");
 	}
 
 	// Create an element to display a group of user elements
@@ -197,12 +267,32 @@ export default class GrouperUI extends Grouper {
 		$groupElement.appendChild($groupTitleElement);
 
 		// Create and add user elements
-		group.forEach(user => {
+		group.forEach((user) => {
 			const $userElement = document.createElement("li");
 			$userElement.textContent = user.name;
 			$groupElement.appendChild($userElement);
 		});
 
 		return $groupElement;
+	}
+
+	// Display a popup and set the text. Will show for 3 seconds
+	showPopup(text) {
+		if (this.popupTimeout) {
+			clearTimeout(this.popupTimeout);
+		}
+
+		this.$popup.classList.add("popup--active");
+		this.$popup.textContent = text;
+		this.popupTimeout = setTimeout(this.hidePopup.bind(this), 3000);
+	}
+
+	// Hides the popup if active and clears any unresolved timeouts
+	hidePopup() {
+		if (this.popupTimeout) {
+			clearTimeout(this.popupTimeout);
+		}
+
+		this.$popup.classList.remove("popup--active");
 	}
 }

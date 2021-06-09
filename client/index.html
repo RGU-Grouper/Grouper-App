@@ -1,59 +1,61 @@
 <!-- <!DOCTYPE html> -->
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" type="image/png" href="img/favicon-32.png" sizes="32x32">
-	<link rel="shortcut icon" type="image/png" href="img/favicon-192.png" sizes="192x192">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<title>Grouper</title>
-</head>
-<body>
-	<header class="header">
-		<img class="header__logo" src="img/logo-trans.png" alt="Grouper Logo">
-		<h1 class="header__title">Grouper</h1>
-	</header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="shortcut icon" type="image/png" href="img/favicon-32.png" sizes="32x32" />
+		<link rel="shortcut icon" type="image/png" href="img/favicon-192.png" sizes="192x192" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>Grouper</title>
+	</head>
+	<body>
+		<header class="header">
+			<img class="header__logo" src="img/logo-trans.png" alt="Grouper Logo" />
+			<h1 class="header__title">Grouper</h1>
+		</header>
 
-	<main class="main">
-		<section class="users">
-			<!--Form to get Minimum Size of groups-->
-			<form class="users__form">
-				<h2 class="users__title">Create Groups</h2>
-				
-				<label class="users__name-label" for="add-user-name">Enter User Name:</label>
-				<input class="users__name-input" id="add-user-name" type="text" placeholder="Enter user name"/>
-				<label class="users__email-label" for="add-user-email">Enter User Email:</label>
-				<input class="users__email-input" id="add-user-email" type="email" placeholder="Enter user email"/>
-				<button class="users__add-user">Add User</button>
-				
-				<label class="users__min-size-label" for="min-size">Enter Minimum Group Size:</label>
-				<input class="users__min-size-input" id="min-size" type="number" />
-				<button class="users__create-groups">Allocate Members</button>
-				<ul class="users__list"></ul>
-			</form>
+		<main class="main">
+			<section class="users">
+				<!--Form to get Minimum Size of groups-->
+				<form class="users__form">
+					<h2 class="users__title">Create Groups</h2>
 
-		</section>
-		<section class="groups">
-			<h2 class="groups__title">Groups List</h2>
-			<div class="groups__list"></div>
-			<button class="groups__email">Email Groups</button>
-		</section>
-	</main>
+					<label class="users__name-label" for="add-user-name">Enter User Name:</label>
+					<input class="users__name-input" id="add-user-name" type="text" placeholder="Enter user name" />
+					<label class="users__email-label" for="add-user-email">Enter User Email:</label>
+					<input class="users__email-input" id="add-user-email" type="email" placeholder="Enter user email" />
+					<button class="users__add-user">Add User</button>
 
-	<footer class="footer">
-		<p class="footer__copyright">Steven Crockart, Ruaidhri MacKenzie, Callum Mcintosh, Patrick Murchie &copy; 2021</p>
-	</footer>
+					<label class="users__min-size-label" for="min-size">Enter Minimum Group Size:</label>
+					<input class="users__min-size-input" id="min-size" type="number" />
+					<button class="users__create-groups">Create Groups</button>
+					<ul class="users__list"></ul>
 
-	
-	<template id="user-template">
-		<li class="user">
-			<p class="user__name">Name</p>
-			<p class="user__email">Email</p>
-			<p class="user__remove">X</p>
-		</li>
-	</template>
+					<button class="users__secret-santa">Secret Santa!</button>
+				</form>
+			</section>
+			<section class="groups">
+				<h2 class="groups__title">Groups List</h2>
+				<div class="groups__list"></div>
+				<button class="groups__email">Email Groups</button>
+			</section>
 
-	<script type="module" src="src/main.js"></script>
-</body>
+			<div class="popup"></div>
+		</main>
+
+		<footer class="footer">
+			<p class="footer__copyright">Steven Crockart, Ruaidhri MacKenzie, Callum Mcintosh, Patrick Murchie &copy; 2021</p>
+		</footer>
+
+		<template id="user-template">
+			<li class="user">
+				<p class="user__name">Name</p>
+				<p class="user__email">Email</p>
+				<p class="user__remove">X</p>
+			</li>
+		</template>
+
+		<script type="module" src="src/main.js"></script>
+	</body>
 </html>

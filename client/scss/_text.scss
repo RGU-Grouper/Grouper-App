@@ -1,14 +1,14 @@
 @mixin title($colour) {
-  font-family: "Times New Roman", serif;
-  line-height: 1.1;
-  padding: 0.5em;
-  text-align: center;
-  color: $colour;
+	font-family: Georgia, "Times New Roman", serif;
+	line-height: 1.1;
+	padding: 0.5em;
+	text-align: center;
+	color: $colour;
 }
 
 @mixin body($colour) {
-  font-family: Verdana, sans-serif;
-  line-height: 1.6;
-  padding: 1em;
-  color: $colour;
+	font-family: Verdana, sans-serif;
+	line-height: 1.6;
+	padding: 1em;
+	color: $colour;
 }

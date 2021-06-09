@@ -47,25 +47,20 @@ body {
 
 .main {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: auto 1fr;
 }
 
 .users {
-  border: 1px solid #010102;
-  background-color: #f2f3f4;
   padding: 1em;
 }
 .users__form {
   display: grid;
-  grid-template-areas: "title				title				title" "name-label		name-input	add-user" "email-label	email-input	add-user" "size-label		size-input	submit" "user-list		user-list		user-list" ".						santa				.";
+  grid-template-areas: "title					title" "add-user				user-list" "create-groups	create-groups";
   justify-content: center;
-  align-items: center;
-  gap: 1em;
-  background-color: white;
-  border: 1px solid black;
-  width: max-content;
-  margin: 0 auto;
-  padding: 1em;
+  margin: 0 1em;
+  border: 2px solid #000099;
+  border-radius: 15px;
+  background-color: #e6e6e6;
 }
 .users__title {
   font-family: Georgia, "Times New Roman", serif;
@@ -75,92 +70,85 @@ body {
   color: #010102;
   grid-area: title;
   text-align: center;
-}
-.users__name-label {
-  padding: 1em;
-  grid-area: name-label;
-}
-.users__name-input {
-  font-size: 1rem;
-  padding: 0.5em;
-  grid-area: name-input;
-}
-.users__email-label {
-  padding: 1em;
-  grid-area: email-label;
-}
-.users__email-input {
-  font-size: 1rem;
-  padding: 0.5em;
-  grid-area: email-input;
-}
-.users__add-user {
-  cursor: pointer;
   background-color: #000099;
+  background-image: linear-gradient(#000099, #0a0ac2);
   color: #f2f3f4;
-  font-size: 1rem;
-  padding: 0.5em 1em;
-  font-weight: 900;
+  border-radius: 10px 10px 0 0;
+}
+
+.add-user {
   grid-area: add-user;
   width: max-content;
-  margin: auto;
-}
-.users__add-user:focus, .users__add-user:hover {
-  background-color: #6fb3e4;
-}
-.users__min-size-label {
-  padding: 1em;
-  grid-area: size-label;
-}
-.users__min-size-input {
-  font-size: 1rem;
-  padding: 0.5em;
-  grid-area: size-input;
-  text-align: center;
-}
-.users__create-groups {
-  cursor: pointer;
-  background-color: #000099;
-  color: #f2f3f4;
-  font-size: 1rem;
-  padding: 0.5em 1em;
-  font-weight: 900;
-  grid-area: submit;
-  margin: auto;
-}
-.users__create-groups:focus, .users__create-groups:hover {
-  background-color: #6fb3e4;
-}
-.users__list {
-  grid-area: user-list;
+  margin: 1em;
+  margin-left: 2em;
+  padding: 2em;
   display: flex;
   flex-direction: column;
-  background-color: #000099;
-  padding: 0.5em;
-  margin: 0 3em;
+  align-items: center;
+  border: 4px solid #000099;
+  border-radius: 10px;
+  background-color: #f2f2f2;
 }
-.users__secret-santa {
-  grid-area: santa;
+.add-user__name-input, .add-user__email-input {
+  font-size: 1rem;
+  padding: 0.5em;
+  margin: 0.25em 0 2em;
+}
+.add-user__submit {
   cursor: pointer;
   background-color: #000099;
   color: #f2f3f4;
   font-size: 1rem;
   padding: 0.5em 1em;
-  font-weight: 900;
+  border-radius: 10px;
+  width: max-content;
+  transition: background-color 250ms;
 }
-.users__secret-santa:focus, .users__secret-santa:hover {
+.add-user__submit:focus, .add-user__submit:hover {
   background-color: #6fb3e4;
 }
 
-.user {
+.user-list {
+  grid-area: user-list;
+  min-width: 30em;
+  height: 19em;
+  overflow-y: scroll;
+  padding: 0.5em;
+  margin: 1em;
+  margin-right: 2em;
+  background-color: #6fb3e477;
+  border: 4px solid #000099;
+  box-shadow: inset 0 0 4px #000099;
+  border-radius: 10px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.user {
+  display: grid;
+  grid-template-columns: auto 6em auto 1fr auto;
+  align-items: center;
   margin: 0.25em;
-  padding: 0.25em;
-  background-color: #bbb;
+  padding: 0.5em 1em;
+  background-color: #000099;
+  color: #f2f3f4;
+  border-radius: 10px;
+}
+.user__name-icon {
+  width: 16px;
+  height: auto;
+}
+.user__email-icon {
+  width: 16px;
+  height: auto;
+  margin-left: 0.5em;
 }
 .user__name {
-  font-size: 1rem;
+  margin-left: 0.5em;
+}
+.user__email {
+  font-size: 0.75rem;
+  margin-left: 0.5em;
 }
 .user__remove {
   color: red;
@@ -168,13 +156,64 @@ body {
   cursor: pointer;
 }
 
+.create-groups {
+  grid-area: create-groups;
+  margin: 0 2em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.create-groups__min-size-label {
+  text-align: right;
+}
+.create-groups__min-size-input {
+  font-size: 1rem;
+  padding: 0.5em;
+  text-align: center;
+  width: 6em;
+  margin-left: 0.25em;
+}
+.create-groups__submit {
+  cursor: pointer;
+  background-color: #000099;
+  color: #f2f3f4;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  width: max-content;
+  transition: background-color 250ms;
+  margin: 1em;
+  margin-right: 0;
+}
+.create-groups__submit:focus, .create-groups__submit:hover {
+  background-color: #6fb3e4;
+}
+.create-groups__secret-santa {
+  cursor: pointer;
+  background-color: #000099;
+  color: #f2f3f4;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  width: max-content;
+  transition: background-color 250ms;
+  margin: 1em;
+  margin-right: 0;
+}
+.create-groups__secret-santa:focus, .create-groups__secret-santa:hover {
+  background-color: #6fb3e4;
+}
+
 .groups {
-  border: 1px solid #010102;
-  background-color: #f2f3f4;
   padding: 1em;
+}
+.groups__container {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  justify-content: center;
+  margin: 0 1em;
+  border: 2px solid #000099;
+  border-radius: 15px;
+  background-color: #e6e6e6;
 }
 .groups__title {
   font-family: Georgia, "Times New Roman", serif;
@@ -182,9 +221,15 @@ body {
   padding: 0.5em;
   text-align: center;
   color: #010102;
-  margin-bottom: 2em;
+  text-align: center;
+  background-color: #000099;
+  background-image: linear-gradient(#000099, #0a0ac2);
+  color: #f2f3f4;
+  border-radius: 10px 10px 0 0;
 }
 .groups__list {
+  margin: 2em 0;
+  justify-self: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -194,9 +239,13 @@ body {
   list-style-type: none;
   margin: 1em;
   padding: 1em;
-  background-color: #bbb;
+  background-color: #6fb3e477;
+  border: 4px solid #000099;
   border-radius: 10px;
   text-align: center;
+}
+.groups__group-title {
+  margin-bottom: 0.25em;
 }
 .groups__email {
   cursor: pointer;
@@ -204,7 +253,11 @@ body {
   color: #f2f3f4;
   font-size: 1rem;
   padding: 0.5em 1em;
-  font-weight: 900;
+  border-radius: 10px;
+  width: max-content;
+  transition: background-color 250ms;
+  justify-self: center;
+  margin: 1em;
 }
 .groups__email:focus, .groups__email:hover {
   background-color: #6fb3e4;

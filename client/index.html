@@ -21,24 +21,30 @@
 				<form class="users__form">
 					<h2 class="users__title">Create Groups</h2>
 
-					<label class="users__name-label" for="add-user-name">Enter User Name:</label>
-					<input class="users__name-input" id="add-user-name" type="text" placeholder="Enter user name" />
-					<label class="users__email-label" for="add-user-email">Enter User Email:</label>
-					<input class="users__email-input" id="add-user-email" type="email" placeholder="Enter user email" />
-					<button class="users__add-user">Add User</button>
+					<div class="add-user">
+						<label class="add-user__name-label" for="add-user-name">Enter User Name:</label>
+						<input class="add-user__name-input" id="add-user-name" type="text" placeholder="Enter user name" />
+						<label class="add-user__email-label" for="add-user-email">Enter User Email:</label>
+						<input class="add-user__email-input" id="add-user-email" type="email" placeholder="Enter user email" />
+						<button class="add-user__submit">Add User</button>
+					</div>
 
-					<label class="users__min-size-label" for="min-size">Enter Minimum Group Size:</label>
-					<input class="users__min-size-input" id="min-size" type="number" />
-					<button class="users__create-groups">Create Groups</button>
-					<ul class="users__list"></ul>
+					<ul class="user-list"></ul>
 
-					<button class="users__secret-santa">Secret Santa!</button>
+					<div class="create-groups">
+						<label class="create-groups__min-size-label" for="min-size">Enter Minimum Group Size:</label>
+						<input class="create-groups__min-size-input" id="min-size" type="number" />
+						<button class="create-groups__submit">Create Groups</button>
+						<button class="create-groups__secret-santa">Secret Santa!</button>
+					</div>
 				</form>
 			</section>
 			<section class="groups">
-				<h2 class="groups__title">Groups List</h2>
-				<div class="groups__list"></div>
-				<button class="groups__email">Email Groups</button>
+				<div class="groups__container">
+					<h2 class="groups__title">Groups List</h2>
+					<div class="groups__list"></div>
+					<button class="groups__email">Email Groups</button>
+				</div>
 			</section>
 
 			<div class="popup"></div>
@@ -50,7 +56,9 @@
 
 		<template id="user-template">
 			<li class="user">
+				<img class="user__name-icon" src="img/icon-user.png" />
 				<p class="user__name">Name</p>
+				<img class="user__email-icon" src="img/icon-email.png" />
 				<p class="user__email">Email</p>
 				<p class="user__remove">X</p>
 			</li>

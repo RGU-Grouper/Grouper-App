@@ -1,30 +1,22 @@
 @use 'colours';
 
-@mixin section {
-  border: 1px solid colours.$dark;
-  background-color: colours.$light;
-  padding: 1em;
-}
-
-@mixin label {
-  padding: 1em;
-}
-
 @mixin input {
-  font-size: 1rem;
-  padding: 0.5em;
+	font-size: 1rem;
+	padding: 0.5em;
 }
 
 @mixin button {
-  cursor: pointer;
-  background-color: colours.$brand1;
-  color: colours.$light;
-  font-size: 1rem;
-  padding: 0.5em 1em;
-  font-weight: 900;
+	cursor: pointer;
+	background-color: colours.$brand1;
+	color: colours.$light;
+	font-size: 1rem;
+	padding: 0.5em 1em;
+	border-radius: 10px;
+	width: max-content;
+	transition: background-color 250ms;
 
-  &:focus,
-  &:hover {
-    background-color: colours.$brand2;
-  }
+	&:focus,
+	&:hover {
+		background-color: colours.$brand2;
+	}
 }

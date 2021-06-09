@@ -82,9 +82,14 @@ class Grouper {
 
 	// Send an email to each user with their group number, returns integer error codes, 0 for success
 	async emailGroups() {
+		if (!this.groups || this.groups.length === 0) {
+			console.log("You must create groups from the user list before emailing.");
+			return 1;
+		}
+
 		if (this.currentGroupsEmailed) {
 			console.log("Current groups have already been emailed.");
-			return 1;
+			return 2;
 		}
 
 		let res = await fetch("/group", {
@@ -95,7 +100,7 @@ class Grouper {
 
 		if (res.status !== 200) {
 			console.log("Failed to email users.");
-			return 2;
+			return 3;
 		}
 
 		console.log("Users emailed successfully.");
@@ -133,14 +138,18 @@ export default class GrouperUI extends Grouper {
 		super();
 
 		this.$userTemplate = document.getElementById("user-template");
-		this.$userList = document.querySelector(".users__list");
-		this.$usersNameInput = document.querySelector(".users__name-input");
-		this.$usersEmailInput = document.querySelector(".users__email-input");
+		this.$userList = document.querySelector(".user-list");
 		this.$usersForm = document.querySelector(".users__form");
-		this.$usersAddUser = document.querySelector(".users__add-user");
-		this.$usersCreateGroups = document.querySelector(".users__create-groups");
-		this.$usersMinSizeInput = document.querySelector(".users__min-size-input");
-		this.$usersSecretSanta = document.querySelector(".users__secret-santa");
+
+		this.$usersNameInput = document.querySelector(".add-user__name-input");
+		this.$usersEmailInput = document.querySelector(".add-user__email-input");
+		this.$usersAddUser = document.querySelector(".add-user__submit");
+
+		this.$usersMinSizeInput = document.querySelector(".create-groups__min-size-input");
+		this.$usersCreateGroups = document.querySelector(".create-groups__submit");
+
+		this.$usersSecretSanta = document.querySelector(".create-groups__secret-santa");
+
 		this.$groupsList = document.querySelector(".groups__list");
 		this.$groupsEmail = document.querySelector(".groups__email");
 		this.$popup = document.querySelector(".popup");
@@ -207,6 +216,11 @@ export default class GrouperUI extends Grouper {
 	// Assign users to groups
 	createGroups() {
 		const minSize = this.$usersMinSizeInput.value;
+		if (!minSize) {
+			this.showPopup("Please enter a minimum group size.");
+			return;
+		}
+
 		super.createGroups(minSize);
 
 		this.clearGroupList();
@@ -230,8 +244,10 @@ export default class GrouperUI extends Grouper {
 		const error = await super.emailGroups();
 		if (error) {
 			if (error === 1) {
+				this.showPopup("You must create groups from the user list before emailing.");
+			} else if (error === 2) {
 				this.showPopup("Current groups have already been emailed.");
-			} else {
+			} else if (error === 3) {
 				this.showPopup("Failed to email users.");
 			}
 			return;
@@ -263,6 +279,7 @@ export default class GrouperUI extends Grouper {
 
 		// Create and add group title
 		const $groupTitleElement = document.createElement("h3");
+		$groupTitleElement.classList.add("groups__group-title");
 		$groupTitleElement.textContent = `Group ${groupIndex}`;
 		$groupElement.appendChild($groupTitleElement);
 

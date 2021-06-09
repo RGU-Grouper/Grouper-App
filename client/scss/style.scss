@@ -47,105 +47,104 @@ body {
 
 .main {
 	display: grid;
-	grid-template-columns: 3fr 2fr;
+	grid-template-columns: auto 1fr;
 }
 
 .users {
-	@include components.section;
+	padding: 1em;
 
 	&__form {
 		display: grid;
 		grid-template-areas:
-			"title				title				title"
-			"name-label		name-input	add-user"
-			"email-label	email-input	add-user"
-			"size-label		size-input	submit"
-			"user-list		user-list		user-list"
-			".						santa				.";
+			"title					title"
+			"add-user				user-list"
+			"create-groups	create-groups";
 		justify-content: center;
-		align-items: center;
-		gap: 1em;
-		background-color: white;
-		border: 1px solid black;
-		width: max-content;
-		margin: 0 auto;
-		padding: 1em;
+		margin: 0 1em;
+		border: 2px solid colours.$brand1;
+		border-radius: 15px;
+		background-color: #e6e6e6;
 	}
 
 	&__title {
 		@include text.title(colours.$dark);
 		grid-area: title;
 		text-align: center;
+		background-color: colours.$brand1;
+		background-image: linear-gradient(colours.$brand1, colours.$brand1-light);
+		color: colours.$light;
+		border-radius: 10px 10px 0 0;
 	}
+}
 
-	&__name-label {
-		@include components.label;
-		grid-area: name-label;
-	}
+.add-user {
+	grid-area: add-user;
+	width: max-content;
+	margin: 1em;
+	margin-left: 2em;
+	padding: 2em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 4px solid colours.$brand1;
+	border-radius: 10px;
+	background-color: #f2f2f2;
 
-	&__name-input {
-		@include components.input;
-		grid-area: name-input;
-	}
-
-	&__email-label {
-		@include components.label;
-		grid-area: email-label;
-	}
-
+	&__name-input,
 	&__email-input {
 		@include components.input;
-		grid-area: email-input;
+		margin: 0.25em 0 2em;
 	}
 
-	&__add-user {
-		@include components.button;
-		grid-area: add-user;
-		width: max-content;
-		margin: auto;
-	}
-
-	&__min-size-label {
-		@include components.label;
-		grid-area: size-label;
-	}
-
-	&__min-size-input {
-		@include components.input;
-		grid-area: size-input;
-		text-align: center;
-	}
-
-	&__create-groups {
-		@include components.button;
-		grid-area: submit;
-		margin: auto;
-	}
-
-	&__list {
-		grid-area: user-list;
-		display: flex;
-		flex-direction: column;
-		background-color: colours.$brand1;
-		padding: 0.5em;
-		margin: 0 3em;
-	}
-
-	&__secret-santa {
-		grid-area: santa;
+	&__submit {
 		@include components.button;
 	}
 }
 
-.user {
+.user-list {
+	grid-area: user-list;
+	min-width: 30em;
+	height: 19em;
+	overflow-y: scroll;
+	padding: 0.5em;
+	margin: 1em;
+	margin-right: 2em;
+	background-color: colours.$brand2-trans;
+	border: 4px solid colours.$brand1;
+	box-shadow: inset 0 0 4px colours.$brand1;
+	border-radius: 10px;
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+}
+
+.user {
+	display: grid;
+	grid-template-columns: auto 6em auto 1fr auto;
+	align-items: center;
 	margin: 0.25em;
-	padding: 0.25em;
-	background-color: #bbb;
+	padding: 0.5em 1em;
+	background-color: colours.$brand1;
+	color: colours.$light;
+	border-radius: 10px;
+
+	&__name-icon {
+		width: 16px;
+		height: auto;
+	}
+
+	&__email-icon {
+		width: 16px;
+		height: auto;
+		margin-left: 0.5em;
+	}
 
 	&__name {
-		font-size: 1rem;
+		margin-left: 0.5em;
+	}
+
+	&__email {
+		font-size: 0.75rem;
+		margin-left: 0.5em;
 	}
 
 	&__remove {
@@ -155,18 +154,61 @@ body {
 	}
 }
 
+.create-groups {
+	grid-area: create-groups;
+	margin: 0 2em;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+
+	&__min-size-label {
+		text-align: right;
+	}
+
+	&__min-size-input {
+		@include components.input;
+		text-align: center;
+		width: 6em;
+		margin-left: 0.25em;
+	}
+
+	&__submit {
+		@include components.button;
+		margin: 1em;
+		margin-right: 0;
+	}
+
+	&__secret-santa {
+		@include components.button;
+		margin: 1em;
+		margin-right: 0;
+	}
+}
+
 .groups {
-	@include components.section;
-	display: grid;
-	grid-template-rows: auto 1fr auto;
-	justify-content: center;
+	padding: 1em;
+
+	&__container {
+		display: grid;
+		grid-template-rows: auto 1fr auto;
+		margin: 0 1em;
+		border: 2px solid colours.$brand1;
+		border-radius: 15px;
+		background-color: #e6e6e6;
+	}
 
 	&__title {
 		@include text.title(colours.$dark);
-		margin-bottom: 2em;
+		text-align: center;
+		background-color: colours.$brand1;
+		background-image: linear-gradient(colours.$brand1, colours.$brand1-light);
+		color: colours.$light;
+		border-radius: 10px 10px 0 0;
 	}
 
 	&__list {
+		margin: 2em 0;
+		justify-self: center;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
@@ -177,13 +219,20 @@ body {
 		list-style-type: none;
 		margin: 1em;
 		padding: 1em;
-		background-color: #bbb;
+		background-color: colours.$brand2-trans;
+		border: 4px solid colours.$brand1;
 		border-radius: 10px;
 		text-align: center;
+
+		&-title {
+			margin-bottom: 0.25em;
+		}
 	}
 
 	&__email {
 		@include components.button;
+		justify-self: center;
+		margin: 1em;
 	}
 }
 

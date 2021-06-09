@@ -6,16 +6,24 @@ let testAccount = null;
 let transporter = null;
 
 const setupEmail = async () => {
-	testAccount = await nodemailer.createTestAccount();
+	// testAccount = await nodemailer.createTestAccount();
 
-	// create reusable transporter object using the default SMTP transport
+	// // create reusable transporter object using the default SMTP transport
+	// transporter = nodemailer.createTransport({
+	// 	host: "smtp.ethereal.email",
+	// 	port: 587,
+	// 	secure: false, // true for 465, false for other ports
+	// 	auth: {
+	// 		user: testAccount.user, // generated ethereal user
+	// 		pass: testAccount.pass, // generated ethereal password
+	// 	},
+	// });
+	
 	transporter = nodemailer.createTransport({
-		host: "smtp.ethereal.email",
-		port: 587,
-		secure: false, // true for 465, false for other ports
+		service: "gmail",
 		auth: {
-			user: testAccount.user, // generated ethereal user
-			pass: testAccount.pass, // generated ethereal password
+			user: "grouper.nescol@gmail.com",
+			pass: "Hunter2!",
 		},
 	});
 };
@@ -36,7 +44,7 @@ router.post('/', (req, res) => {
 				const text = `Hi ${user.name}! You are now a part of group ${index + 1}!`;
 				
 				transporter.sendMail({
-					from: '"Grouper" <grouper@ruaidhri-mackenzie.com>',
+					from: '"Grouper" <grouper.nescol@gmail.com>',
 					to: user.email, // list of receivers - comma separated string
 					subject: "You have been put into a Grouper group!", // Subject line
 					text, // plain text body

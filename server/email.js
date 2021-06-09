@@ -29,7 +29,7 @@ const sendMail = (to, subject, text) => {
 				console.log(error);
 			} else {
 				// console.log(info);
-				console.log(`Group ${index + 1}: ${user.name} - ${user.email}`);
+				console.log(`Group ${index + 1}: ${user.getName()} - ${user.getEmail()}`);
 			}
 		}
 	);

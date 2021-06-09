@@ -9,8 +9,8 @@ class Grouper {
 
 	// Add a user to the user-list, returns integer error codes, 0 for success
 	addUser(name, email) {
-		const existingUsersNames = this.userList.map((user) => user.name);
-		const existingUsersEmails = this.userList.map((user) => user.email);
+		const existingUsersNames = this.userList.map((user) => user.getName());
+		const existingUsersEmails = this.userList.map((user) => user.getEmail());
 
 		if (existingUsersNames.includes(name)) {
 			console.log("User already exists with that name.");
@@ -27,7 +27,7 @@ class Grouper {
 
 	// Remove a user from the user-list, returns integer error codes, 0 for success
 	removeUser(name) {
-		const user = this.userList.find((u) => u.name === name);
+		const user = this.userList.find((u) => u.getName() === name);
 		if (user) {
 			const index = this.userList.indexOf(user);
 			this.userList.splice(index, 1);
@@ -269,7 +269,7 @@ export default class GrouperUI extends Grouper {
 		// Create and add user elements
 		group.forEach((user) => {
 			const $userElement = document.createElement("li");
-			$userElement.textContent = user.name;
+			$userElement.textContent = user.getName();
 			$groupElement.appendChild($userElement);
 		});
 

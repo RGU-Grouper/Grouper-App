@@ -8,8 +8,8 @@ const emailGroups = (req, res) => {
 			group.forEach((user) => {
 				// Email user with group number
 				const subject = "You have been put into a Grouper group!";
-				const text = `Hi ${user.name}! You are now a part of group ${index + 1}!`;
-				email.sendMail(user.email, subject, text);
+				const text = `Hi ${user.getName()}! You are now a part of group ${index + 1}!`;
+				email.sendMail(user.getEmail(), subject, text);
 			});
 		});
 
@@ -34,8 +34,8 @@ const secretSanta = (req, res) => {
 			}
 
 			const subject = "You have been entered into Secret Santa!";
-			const text = `Hi ${giftGiver.name}! You have drawn ${giftReceiver.name} in Secret Santa, please get them a nice gift!`;
-			email.sendMail(giftGiver.email, subject, text);
+			const text = `Hi ${giftGiver.getName()}! You have drawn ${giftReceiver.getName()} in Secret Santa, please get them a nice gift!`;
+			email.sendMail(giftGiver.getEmail(), subject, text);
 		}
 
 		res.sendStatus(200);

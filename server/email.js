@@ -3,6 +3,7 @@ const keys = require("./keys.js");
 
 let transporter = null;
 
+// Setup the transporter with the correct sending address and auth
 const setupEmail = async () => {
 	transporter = nodemailer.createTransport({
 		service: keys.emailService,
@@ -13,6 +14,7 @@ const setupEmail = async () => {
 	});
 };
 
+// Send an email from the official account
 const sendMail = (to, subject, text) => {
 	transporter.sendMail(
 		{

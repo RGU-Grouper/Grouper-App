@@ -1,5 +1,6 @@
 const email = require("./email.js");
 
+// Email users with their group number. Return status 200 if successful and 500 otherwise
 const emailGroups = (req, res) => {
 	try {
 		const groups = req.body.data;
@@ -19,6 +20,7 @@ const emailGroups = (req, res) => {
 	}
 };
 
+// Email users with their secret santa draw. Return status 200 if successful and 500 otherwise
 const secretSanta = (req, res) => {
 	try {
 		const userList = req.body.data;

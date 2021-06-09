@@ -10,9 +10,14 @@ class Grouper {
 	// Add a user to the user-list
 	addUser(name, email) {
 		const existingUsersNames = this.userList.map(user => user.name);
+		const existingUsersEmails = this.userList.map(user => user.email);
 
 		if (existingUsersNames.includes(name)) {
 			console.log("User already exists with that name.");
+			return false;
+		}
+		else if (existingUsersEmails.includes(email)) {
+			console.log("User already exists with that email.");
 			return false;
 		}
 		else {
